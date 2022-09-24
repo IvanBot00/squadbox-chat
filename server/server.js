@@ -34,7 +34,6 @@ mongoose.connect(db, err => {
 // Endpoints
 
 app.post("/create", function(req, res){
-    console.log(req);
     const newRoom =  new Room({
         name: req.body.name,
         id: roomIdGenerator.roomIdGenerator()
@@ -43,14 +42,15 @@ app.post("/create", function(req, res){
 });
 
 app.post('/createProfile', function(req, res) {
-    console.log(req);
+
     const newProfile = new Profile({
         username: req.body.username,
         password: req.body.password,
         email: req.body.email
     });
 
-    newProfile.save().then(console.log("Profile has been created!"))
+    newProfile.save()
+        .then(console.log("Creating profile."))
         .catch(err => console.log("Error when creating a profile: ", err));
 });
 

@@ -1,14 +1,13 @@
-// Import dependencies
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('config');
 const Profile = require('./models/profile');
 const Room = require('./models/room');
 const Message = require('./models/messages');
 const  roomIdGenerator  = require('./util/roomIdGenerator');
 
 const app = express();
-const port = 8080;
+const port = process.env.APP_PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -22,7 +21,7 @@ const corsOptions ={
 app.use(cors(corsOptions))
 
 // Connect to DB
-const db = config.get('mongoURI');
+const db = process.env.DB_URI;
 mongoose.connect(db, err => {
     if(err) {
         throw err;
